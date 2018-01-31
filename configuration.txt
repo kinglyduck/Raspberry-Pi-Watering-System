@@ -1,0 +1,21 @@
+[[ PIN STATES]]
+pin0=off
+pin1=off
+pin2=off
+pin3=off
+pin4=off
+pin5=off
+pin6=off
+pin7=off
+pin8=off
+pin9=off
+pin10=off
+pin11=off
+pin12=off
+pin13=off
+pin14=off
+pin15=off
+
+[[ CONFIGURATION ]]
+SCHEDULE=	//Day of week
+WATERING_TIMING=	//Example: Light, Medium, Heavy
