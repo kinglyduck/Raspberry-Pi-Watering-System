@@ -5,7 +5,7 @@ pin2=off
 pin3=off
 pin4=off
 pin5=off
-pin6=on
+pin6=off
 pin7=off
 pin8=off
 pin9=off
@@ -17,6 +17,3 @@ pin14=off
 pin15=off
 
 [[ CONFIGURATION ]]
-SCHEDULE=1234
-WATERING_TIMING=Light
-
