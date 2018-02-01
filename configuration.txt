@@ -17,8 +17,14 @@ pin14=off
 pin15=off
 
 [[ CONFIGURATION ]]
-SCHEDULE=3234123423
-WATERING_TIMING=Moderate
+SCHEDULE=testing
+WATERING_TIMING=Heavy
+
+
+
+
+
+
 
 
 
