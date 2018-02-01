@@ -6,14 +6,15 @@ lines=($(cat configuration.txt)) # array
 IFS=$old_IFS
 
 # GPIO pin options will be on lines 2 through 17
-# Since this is in an array, it'll be 1 through 17
-# Loop 1 through 15
+# For pin numbers 0 through 15. So...Line 2, which in the array is line 1, is pin 0.
+# Loop 1 through 17 for the lines in the array
 for ((number=1;number <= 17 ;number++))
 {
-# Check the line we're on for "on"
+# Check the line we're for "on"
 if [[ ${lines[number]} = *"on"* ]]; then
-	# Do stuff if we find "on", the echo is for testing purposes
+	# The actual pin number is 1 less than the array number
 	pinNumber = number - 1
+	#Echo for testing purposes
 	echo "Changing pin number " . pinNumber . " to on"
 fi
 }
