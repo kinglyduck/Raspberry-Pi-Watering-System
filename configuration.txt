@@ -17,19 +17,7 @@ pin14=off
 pin15=off
 
 [[ CONFIGURATION ]]
-SCHEDULE=testing
-WATERING_TIMING=Heavy
-
-
-
-
-
-
-
-
-
-
-
-
+SCHEDULE=
+WATERING_TIMING=Light
 
 

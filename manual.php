@@ -101,7 +101,7 @@
                       <p>Scheduling:
                         <span>
                           <?php
-                            echo '<input type="text" name="schedule" value="' . $conf[16] . '" />';
+                            echo '<input type="text" name="schedule" placeholder="* * * * * *" value="' . $conf[16] . '" />';
                           ?>
                           <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cronjob formatting</a>
                         </span>
