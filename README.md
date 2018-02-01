@@ -5,13 +5,13 @@
 
 ## Getting Started
  Hardware Required:
-   Raspberry Pi
-   Diaphram pumps
-   Adafruit 16-Channel 12-bit PWM/Servo Driver - I2C interface
+   - Raspberry Pi
+   - Diaphram pumps
+   - Adafruit 16-Channel 12-bit PWM/Servo Driver - I2C interface
  
  Software Requirements:
-   Crontab
-   Xampp server
+   - Crontab
+   - Xampp server
 
 ## Authors
 
