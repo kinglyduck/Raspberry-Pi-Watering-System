@@ -1,0 +1,9 @@
+Controlling GPIO
+//set pin mode to out
+gpio -g mode [pin #] out
+
+//write value of 1 or 0 to pin for on or off
+gpio -g write [pin #] [1/0]
+
+//toggle pin on or off
+gpio -g toggle [pin#]
