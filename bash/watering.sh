@@ -18,10 +18,13 @@ waterTiming = ${line[19]} | cut -d "=" -f2
 # CODE FOR WATERING TIMING GOES HERE
 #
 #
-#
+#	
 #
 #
 
+# ** W A R N I N G ** W A R N I N G **
+# THIS WILL LOOP UNTIL IT IS TURNED OFF
+# ** W A R N I N G ** W A R N I N G **
 while true 
 do
 	# If a file "stop" exists in the temp directory, end the program.
