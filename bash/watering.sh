@@ -17,7 +17,7 @@ waterTiming = ${line[20]} | cut -d "=" -f2
 # TO DO
 # CODE FOR WATERING TIMING GOES HERE
 #
-#
+# Switch statement for light // medium // heavy
 #	
 #
 #
@@ -28,6 +28,7 @@ waterTiming = ${line[20]} | cut -d "=" -f2
 while true 
 do
 	# If a file "stop" exists in the temp directory, end the program.
+	# Change to check for a "stop" line in text file -- Coming Soon
 	if [ -f /tmp/stop ] ; then
 		exit 0
 	fi
@@ -61,4 +62,3 @@ do
 	sleep $waterSleep
 
 done
-d
