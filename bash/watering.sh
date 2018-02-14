@@ -11,8 +11,8 @@ do
 		echo "Stop file found, ending the program"
 		exit 0
 	fi
-	
-	# cat the config file each loop to check for changes
+
+	# Each loop, cat the config file to check for changes
 	old_IFS=$IFS
 	IFS=$'\n'
 	LINES=($(cat configuration.txt)) # array
@@ -22,7 +22,8 @@ do
 	echo ${LINES[4]} # will echo line number 4 (line numbering start with 0)
 
 	# Default value for the sleep timing
-	WATERSLEEP = 1
+	# This value gives a loop time of 1.5 minutes (86.4 seconds )
+	WATERSLEEP = 0.001
 	# Schedule on line 20, number 19 in array, get the value after the "="
 	WATERSLEEP = ${LINES[19]} | cut -d "=" -f2
 	# Echo for testing
@@ -57,12 +58,14 @@ do
 		# Loop 1 through 17 for the lines in the array
 		for ((NUMBER=1;NUMBER <= 17;NUMBER++)) {
 			# Check the line we're for "on"
+			# Echo for testing
+			echo "Checking line number " . $NUMBER
 			if [[ ${LINES[NUMBER]} = *"on"* ]]; then
 				# The actual pin number is 1 less than the array number
-				PINNUMBER = NUMBER - 1
+				PINNUMBER = $NUMBER - 1
 
 				# Testing echo
-				echo "Changing pin number " . PINNUMBER . " to on"
+				echo "Changing pin number " . $PINNUMBER . " to on"
 
 				# Set pin mode to Out
 				gpio -g mode $PINNUMBER out
