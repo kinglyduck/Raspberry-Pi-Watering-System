@@ -25,6 +25,10 @@
           document.getElementById(obj.name).src="images/on.png";
       }
     }
+
+    function buttonClick() {
+        document.getElementById('Manual').style.display = "";
+    }
     </script>
   </head>
   <body>
@@ -50,88 +54,116 @@
     <header class="masthead">
       <div class="container h-100">
         <div class="row h-100">
+          <!-- Enable/Disable -->
+          <table style="position:fixed; right:16%; top:80px;">
+            <tr>
+              <td>
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round" onclick="buttonClick()"></span>
+                  </label>
+              </td>
+              <td>
+                <p id="endis">Enabled</p>
+              </td>
+            </tr>
+          </table>
+
           <div class="col-lg-7 my-auto">
             <div class="header-content mx-auto">
-              <?php
-                  $file_handle = fopen("configuration.txt", "rb");
-                  $conf;
-                  $COUNTER = 0;
 
-                  while (!feof($file_handle) ) {
-                  $line_of_text = fgets($file_handle);
 
-                    if (strpos($line_of_text, "=") !== false) {
-                      $parts = explode('=', $line_of_text);
-                      $conf[$COUNTER] = $parts[1];
-                      $COUNTER++;
+              <div id="Manual" style="display:none;">
+                <!-- Get current configuration -->
+                <?php
+                    $file_handle = fopen("configuration.txt", "rb");
+                    $conf;
+                    $COUNTER = 0;
+
+                    while (!feof($file_handle) ) {
+                    $line_of_text = fgets($file_handle);
+
+                      if (strpos($line_of_text, "=") !== false) {
+                        $parts = explode('=', $line_of_text);
+                        $conf[$COUNTER] = $parts[1];
+                        $COUNTER++;
+                      }
                     }
-                  }
-                  fclose($file_handle);
-               ?>
-               <table>
-                 <tr>
-                   <td>
-                      <iframe name="frame" style="display:none;"></iframe>
-                      <table>
-                      <form action="Translation.php" method="post" target="frame">
-                        <tr>
-                          <?php
-                            for ($i = 0; $i < 15; $i++) {
-                                if ($i % 6 == 0) {
-                                  echo "<tr>";
-                                } else {
-                                echo "<td><p>Plant $i</p>";
-                                echo '<img src="images/' . $conf[$i] . '.png" alt="off" id="P' . $i . '" />';
+                    fclose($file_handle);
+                 ?>
+                 <table>
+                   <tr>
+                     <td>
+                        <!-- Frame to prevent refresh but uploads data using php -->
+                        <iframe name="frame" style="display:none;"></iframe>
 
-                                if (strpos($conf[$i], "off") !== false) {
-                                  echo '<input type="submit" name="P' . $i . '" value="Toggle on" onclick ="myFunction(this)" />';
-                                } else {
-                                  echo '<input type="submit" name="P' . $i . '" value="Toggle off" onclick ="myFunction(this)" /></td>';
+                        <!-- Manual Toggle on/off -->
+                        <table>
+                          <form action="Translation.php" method="post" target="frame">
+                            <tr>
+                              <?php
+                                for ($i = 0; $i < 15; $i++) {
+                                    if ($i % 6 == 0) {
+                                      echo "<tr>";
+                                    } else {
+                                    echo "<td><p>Plant $i</p>";
+                                    echo '<img src="images/' . $conf[$i] . '.png" alt="off" id="P' . $i . '" />';
+
+                                    if (strpos($conf[$i], "off") !== false) {
+                                      echo '<input type="submit" name="P' . $i . '" value="Toggle on" onclick ="myFunction(this)" />';
+                                    } else {
+                                      echo '<input type="submit" name="P' . $i . '" value="Toggle off" onclick ="myFunction(this)" /></td>';
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          ?>
-                        </tr>
-                      </form>
-                    </table>
-                  </td>
-                  <td style="padding-left:100px;">
-                  <form action="Translation.php" method="post" target="frame">
-                    <H1>Scheduling/Timing</H1>
-                      <p>Scheduling:
-                        <span>
+                              ?>
+                            </tr>
+                          </form>
+                        </table>
+                      </td>
+
+                      <!-- Scheduling -->
+                      <td style="padding-left:100px;">
+                        <form action="Translation.php" method="post" target="frame">
+                          <H1>Scheduling/Timing</H1>
+                          <p>Scheduling:
+                          <span>
+                            <?php
+                              echo '<input type="text" name="schedule" placeholder="* * * * * *" value="' . $conf[16] . '" />';
+                            ?>
+                            <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cronjob formatting</a>
+                          </span>
+                        </p>
+
+                        <!-- Watering Level Light, Moderate, Heavy-->
+                        <p>Watering level:
+                          <span>
+                            <select name="level">
+                              <option value="Light">Light</option>
+                              <option value="Moderate">Moderate</option>
+                              <option value="Heavy">Heavy</option>
+                            </select>
+                          </span>
                           <?php
-                            echo '<input type="text" name="schedule" placeholder="* * * * * *" value="' . $conf[16] . '" />';
+                            echo "Current level: " . $conf[17];
                           ?>
-                          <a href="http://www.nncron.ru/help/EN/working/cron-format.htm">cronjob formatting</a>
-                        </span>
-                      </p>
+                        </p>
+                        <input type="submit" name="save" value="Save Configuration" onclick="window.location.reload();"/>
+                        <p>Warning this will reset all pump power states to off.</p>
+                      </form>
+                    </td>
+                  </tr>
+                </table>
+              </div> <!-- End Manual -->
+            </div> <!-- End Header -->
+          </div> <!-- End col -->
+        </div> <!-- End row -->
+      </div> <!-- End container -->
+    </header>
 
-                      <p>Watering level:
-                      <span>
-                        <select name="level">
-                           <option value="Light">Light</option>
-                           <option value="Moderate">Moderate</option>
-                           <option value="Heavy">Heavy</option>
-                          </select>
-                        </span>
-                        <?php
-                          echo "Current level: " . $conf[17];
-                        ?>
-                      </p>
-                      <input type="submit" name="save" value="Save Configuration" onclick="window.location.reload();"/>
-                      <p>Warning this will reset all pump power states to off.</p>
-                  </form>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </header>
-
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-      <script src="js/new-age.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/new-age.min.js"></script>
   </body>
 </html>
